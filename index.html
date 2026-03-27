@@ -386,20 +386,36 @@
 <section id="veiculos">
   <div class="section-label">Disponíveis agora</div>
   <h2 class="section-title">Veículos à venda</h2>
-  <div class="veiculos-grid">
-    <div class="veiculo-card">
-      <div class="veiculo-img">🚗<div class="veiculo-badge">Consignado</div></div>
-      <div class="veiculo-body"><div class="veiculo-title">Honda Civic EXL</div><div class="veiculo-meta">2019 · 45.000 km · Automático</div><div class="veiculo-price">R$ 115.000</div><a href="https://wa.me/5521968111066" class="veiculo-btn">Tenho interesse</a></div>
-    </div>
-    <div class="veiculo-card">
-      <div class="veiculo-img">🚙<div class="veiculo-badge">Repasse</div></div>
-      <div class="veiculo-body"><div class="veiculo-title">Toyota Corolla XEI</div><div class="veiculo-meta">2020 · 62.000 km · Automático</div><div class="veiculo-price">R$ 128.000</div><a href="https://wa.me/5521968111066" class="veiculo-btn">Tenho interesse</a></div>
-    </div>
-    <div class="veiculo-card">
-      <div class="veiculo-img">🚐<div class="veiculo-badge">Novo</div></div>
-      <div class="veiculo-body"><div class="veiculo-title">Jeep Compass Limited</div><div class="veiculo-meta">2021 · 38.000 km · Automático</div><div class="veiculo-price">R$ 178.000</div><a href="https://wa.me/5521968111066" class="veiculo-btn">Tenho interesse</a></div>
-    </div>
+  <p id="estoque-info" style="text-align:center;font-size:0.85rem;color:var(--gray);margin-bottom:1rem"></p>
+  <div class="veiculos-grid" id="vitrine-veiculos">
+    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:var(--gray)">Carregando estoque...</div>
   </div>
+  <script>
+  fetch('https://raw.githubusercontent.com/luizmpjr-code/lm-autosolutions/main/estoque.json?v=' + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      const grid = document.getElementById('vitrine-veiculos');
+      const info = document.getElementById('estoque-info');
+      if (!data.veiculos || data.veiculos.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem"><p>Consulte o estoque pelo WhatsApp.</p><a href="https://wa.me/5521968111066" class="btn-primary" style="display:inline-block;margin-top:1rem">Ver estoque</a></div>';
+        return;
+      }
+      if (info) info.textContent = data.total + ' veículos disponíveis · atualizado ' + data.atualizado;
+      grid.innerHTML = data.veiculos.slice(0,6).map(v => `
+        <div class="veiculo-card">
+          ${v.imagem ? `<div class="veiculo-img" style="padding:0;height:200px"><img src="${v.imagem}" alt="${v.titulo}" style="width:100%;height:100%;object-fit:cover"></div>` : '<div class="veiculo-img">🚗</div>'}
+          <div class="veiculo-body">
+            <div class="veiculo-title">${v.titulo}</div>
+            <div class="veiculo-meta">${v.detalhes}</div>
+            <div class="veiculo-price">${v.preco}</div>
+            <a href="https://wa.me/5521968111066?text=Interesse+em:+${encodeURIComponent(v.titulo)}" class="veiculo-btn" target="_blank">Tenho interesse</a>
+          </div>
+        </div>`).join('');
+    })
+    .catch(() => {
+      document.getElementById('vitrine-veiculos').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:2rem"><a href="https://wa.me/5521968111066" class="btn-primary">(21) 96811-1066</a></div>';
+    });
+  </script>
   <div class="veiculos-cta">
     <a href="https://wa.me/5521968111066" class="btn-primary">Ver estoque completo →</a>
     <p class="veiculos-note">Atendemos compradores e vendedores em todo o Brasil — novos veículos chegam toda semana.</p>
