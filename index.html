@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LM AutoSolutions — Especialista em Veículos · Brasil</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0f0f0f;
+    --white: #fafaf8;
+    --cream: #f5f2ec;
+    --accent: #c8973a;
+    --accent-dark: #8a6420;
+    --gray: #6b6b6b;
+    --gray-light: #e8e5df;
+    --text: #1a1a1a;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
+  h1,h2,h3,h4 { font-family: 'Syne', sans-serif; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw; height: 68px;
+    background: rgba(250,250,248,0.93); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--black); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .nav-badge { background: var(--accent); color: #fff; font-size: 0.62rem; font-weight: 700; padding: 2px 8px; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 2px; }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.85rem; font-weight: 500; font-family: 'Syne', sans-serif; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta { background: var(--accent); color: #fff; padding: 9px 20px; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; font-family: 'Syne', sans-serif; transition: background 0.2s, transform 0.15s; }
+  .nav-cta:hover { background: var(--accent-dark); transform: translateY(-1px); }
+
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 68px; }
+  .hero-left { background: var(--black); display: flex; flex-direction: column; justify-content: center; padding: 8vw 5vw 8vw 8vw; position: relative; overflow: hidden; }
+  .hero-left::before { content: ''; position: absolute; top: -60px; right: -60px; width: 320px; height: 320px; border: 80px solid rgba(200,151,58,0.10); border-radius: 50%; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(200,151,58,0.15); border: 1px solid rgba(200,151,58,0.3); color: var(--accent); font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 2px; margin-bottom: 2rem; width: fit-content; animation: fadeUp 0.5s ease both; }
+  .hero-title { font-size: clamp(2.4rem, 4.3vw, 3.7rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; color: var(--white); margin-bottom: 1.5rem; animation: fadeUp 0.5s 0.1s ease both; }
+  .hero-title em { font-style: normal; color: var(--accent); }
+  .hero-desc { color: rgba(250,250,248,0.55); font-size: 0.97rem; font-weight: 300; max-width: 420px; margin-bottom: 2.5rem; line-height: 1.82; animation: fadeUp 0.5s 0.2s ease both; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeUp 0.5s 0.3s ease both; }
+  .btn-primary { background: var(--accent); color: #fff; padding: 14px 28px; border-radius: 2px; text-decoration: none; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.04em; font-family: 'Syne', sans-serif; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: rgba(250,250,248,0.62); border: 1px solid rgba(250,250,248,0.18); padding: 14px 28px; border-radius: 2px; text-decoration: none; font-weight: 500; font-size: 0.9rem; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-stats { display: flex; gap: 2rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); animation: fadeUp 0.5s 0.4s ease both; flex-wrap: wrap; }
+  .stat-num { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 0.72rem; color: rgba(250,250,248,0.38); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 4px; }
+  .hero-right { background: var(--cream); display: flex; flex-direction: column; justify-content: center; padding: 8vw 8vw 8vw 5vw; gap: 1.2rem; }
+  .service-card-mini { background: var(--white); border: 1px solid var(--gray-light); border-left: 3px solid var(--accent); padding: 1.2rem 1.5rem; border-radius: 2px; transition: transform 0.2s, box-shadow 0.2s; }
+  .service-card-mini:hover { transform: translateX(4px); box-shadow: 4px 4px 20px rgba(0,0,0,0.06); }
+  .service-card-mini h4 { font-size: 0.88rem; font-weight: 700; color: var(--black); margin-bottom: 3px; font-family: 'Syne', sans-serif; }
+  .service-card-mini p { font-size: 0.79rem; color: var(--gray); font-weight: 300; line-height: 1.5; }
+
+  .section-label { font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+  .section-label::before { content: ''; display: block; width: 28px; height: 2px; background: var(--accent); }
+  .section-title { font-size: clamp(1.6rem, 2.6vw, 2.4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--black); margin-bottom: 1.25rem; }
+  .section-body { font-size: 0.95rem; color: var(--gray); font-weight: 300; line-height: 1.85; max-width: 480px; }
+
+  /* HISTÓRIA */
+  #historia { background: var(--black); padding: 8vw; }
+  .historia-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; margin-bottom: 4rem; align-items: start; }
+  .historia-title { font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 800; line-height: 1.08; letter-spacing: -0.03em; color: var(--white); margin-bottom: 1rem; }
+  .historia-title em { font-style: normal; color: var(--accent); }
+  .historia-desc { font-size: 0.97rem; color: rgba(250,250,248,0.48); font-weight: 300; line-height: 1.88; }
+
+  .heranca-card { background: rgba(200,151,58,0.08); border: 1px solid rgba(200,151,58,0.2); border-left: 3px solid var(--accent); border-radius: 2px; padding: 1.5rem 1.75rem; margin-bottom: 3.5rem; }
+  .heranca-card h3 { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .heranca-card p { font-size: 0.88rem; color: rgba(250,250,248,0.58); font-weight: 300; line-height: 1.82; }
+  .heranca-card p strong { color: rgba(250,250,248,0.88); font-weight: 500; }
+
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 1px; background: rgba(200,151,58,0.22); }
+  .tl-item { position: relative; margin-bottom: 2.75rem; opacity: 0; transform: translateX(-16px); transition: opacity 0.5s, transform 0.5s; }
+  .tl-item.visible { opacity: 1; transform: translateX(0); }
+  .tl-dot { position: absolute; left: -32px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent-dark); border: 2px solid var(--accent); }
+  .tl-item.highlight .tl-dot { width: 16px; height: 16px; left: -34px; background: var(--accent); box-shadow: 0 0 0 4px rgba(200,151,58,0.18); }
+  .tl-year { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 5px; }
+  .tl-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .tl-desc { font-size: 0.86rem; color: rgba(250,250,248,0.42); font-weight: 300; line-height: 1.75; max-width: 520px; }
+  .tl-tag { display: inline-block; margin-top: 8px; background: rgba(200,151,58,0.12); border: 1px solid rgba(200,151,58,0.25); color: var(--accent); font-family: 'Syne', sans-serif; font-size: 0.63rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 2px; }
+
+  /* SOBRE */
+  #sobre { display: grid; grid-template-columns: 1fr 1fr; }
+  .sobre-visual { background: var(--accent); display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 8vw; position: relative; overflow: hidden; }
+  .sobre-visual::before { content: '"'; position: absolute; top: -30px; left: 30px; font-family: 'Syne', sans-serif; font-size: 18rem; font-weight: 800; color: rgba(0,0,0,0.07); line-height: 1; pointer-events: none; }
+  .sobre-quote { font-family: 'Syne', sans-serif; font-size: clamp(1.15rem, 1.9vw, 1.65rem); font-weight: 700; color: #fff; line-height: 1.4; max-width: 400px; position: relative; z-index: 1; margin-bottom: 2rem; }
+  .sobre-anos { display: flex; align-items: center; gap: 16px; background: rgba(0,0,0,0.15); padding: 16px 24px; border-radius: 2px; }
+  .sobre-anos-num { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: #fff; line-height: 1; }
+  .sobre-anos-text { font-size: 0.8rem; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.4; }
+  .sobre-content { background: var(--white); display: flex; flex-direction: column; justify-content: center; padding: 8vw; }
+  .segmentos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 2rem; }
+  .seg-pill { display: flex; align-items: center; gap: 8px; padding: 9px 13px; border: 1px solid var(--gray-light); border-radius: 2px; background: var(--cream); font-size: 0.78rem; color: var(--text); font-weight: 500; }
+  .seg-pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  /* SERVIÇOS */
+  #servicos { background: var(--cream); padding: 8vw; }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 4rem; gap: 2rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--gray-light); border: 1.5px solid var(--gray-light); }
+  .srv-card { background: var(--white); padding: 2.5rem 2rem; transition: background 0.25s; }
+  .srv-card:hover { background: var(--black); }
+  .srv-card:hover .srv-num, .srv-card:hover .srv-desc { color: rgba(250,250,248,0.72); }
+  .srv-card:hover .srv-title { color: var(--white); }
+  .srv-card:hover .srv-line { background: var(--accent); }
+  .srv-card:hover .srv-items li { color: rgba(250,250,248,0.62); }
+  .srv-num { font-family: 'Syne', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 1.1rem; transition: color 0.25s; }
+  .srv-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; color: var(--black); margin-bottom: 0.6rem; line-height: 1.2; transition: color 0.25s; font-family: 'Syne', sans-serif; }
+  .srv-line { width: 28px; height: 2px; background: var(--gray-light); margin-bottom: 0.85rem; transition: background 0.25s; }
+  .srv-desc { font-size: 0.84rem; color: var(--gray); line-height: 1.7; font-weight: 300; margin-bottom: 1.1rem; transition: color 0.25s; }
+  .srv-items { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  .srv-items li { font-size: 0.77rem; color: var(--gray); display: flex; align-items: center; gap: 7px; transition: color 0.25s; }
+  .srv-items li::before { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+
+  /* VEÍCULOS */
+  #veiculos { padding: 8vw; background: var(--white); }
+  .veiculos-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+  .veiculo-card { border: 1px solid var(--gray-light); border-radius: 2px; overflow: hidden; transition: box-shadow 0.25s, transform 0.2s; }
+  .veiculo-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.09); transform: translateY(-4px); }
+  .veiculo-img { background: var(--cream); height: 165px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; }
+  .veiculo-badge { position: absolute; top: 12px; left: 12px; background: var(--accent); color: #fff; font-family: 'Syne', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border-radius: 2px; }
+  .veiculo-body { padding: 1.1rem 1.4rem 1.4rem; }
+  .veiculo-title { font-size: 0.92rem; font-weight: 700; color: var(--black); margin-bottom: 3px; font-family: 'Syne', sans-serif; }
+  .veiculo-meta { font-size: 0.74rem; color: var(--gray); margin-bottom: 0.85rem; }
+  .veiculo-price { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 800; color: var(--accent); margin-bottom: 0.85rem; }
+  .veiculo-btn { display: block; text-align: center; background: var(--black); color: var(--white); padding: 9px; font-size: 0.77rem; font-family: 'Syne', sans-serif; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border-radius: 2px; transition: background 0.2s; }
+  .veiculo-btn:hover { background: var(--accent); }
+  .veiculos-cta { text-align: center; margin-top: 3rem; }
+  .veiculos-note { font-size: 0.81rem; color: var(--gray); margin-top: 1rem; }
+
+  /* EBOOK */
+  #ebook { background: var(--black); display: grid; grid-template-columns: 1fr 1fr; }
+  .ebook-left { padding: 8vw; display: flex; flex-direction: column; justify-content: center; }
+  .ebook-tag { display: inline-flex; background: rgba(200,151,58,0.15); border: 1px solid rgba(200,151,58,0.3); color: var(--accent); font-family: 'Syne', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 2px; margin-bottom: 2rem; width: fit-content; }
+  .ebook-title { font-family: 'Syne', sans-serif; font-size: clamp(1.65rem, 2.7vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; color: var(--white); margin-bottom: 1.2rem; }
+  .ebook-title em { font-style: normal; color: var(--accent); }
+  .ebook-desc { font-size: 0.92rem; color: rgba(250,250,248,0.48); font-weight: 300; line-height: 1.82; max-width: 440px; margin-bottom: 2rem; }
+  .ebook-topics { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 2.5rem; }
+  .ebook-topics li { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; color: rgba(250,250,248,0.65); }
+  .ebook-topics li::before { content: '✓'; color: var(--accent); font-weight: 700; }
+  .ebook-right { background: var(--accent); display: flex; align-items: center; justify-content: center; padding: 6vw; position: relative; overflow: hidden; }
+  .ebook-right::before { content: ''; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border: 60px solid rgba(0,0,0,0.08); border-radius: 50%; }
+  .ebook-cover { background: var(--black); width: 225px; height: 305px; border-radius: 4px 12px 12px 4px; box-shadow: -6px 6px 0 rgba(0,0,0,0.25), 20px 20px 50px rgba(0,0,0,0.3); padding: 1.7rem 1.4rem; display: flex; flex-direction: column; justify-content: space-between; position: relative; z-index: 1; }
+  .ebook-cover-label { font-family: 'Syne', sans-serif; font-size: 0.57rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+  .ebook-cover-title { font-family: 'Syne', sans-serif; font-size: 0.97rem; font-weight: 800; line-height: 1.2; color: var(--white); letter-spacing: -0.02em; }
+  .ebook-cover-sub { font-size: 0.67rem; color: rgba(250,250,248,0.38); line-height: 1.5; }
+  .ebook-cover-author { font-family: 'Syne', sans-serif; font-size: 0.67rem; font-weight: 600; color: var(--accent); letter-spacing: 0.06em; margin-top: 6px; }
+
+  /* CONTATO */
+  #contato { background: var(--cream); padding: 8vw; display: grid; grid-template-columns: 1fr 1fr; gap: 6vw; align-items: center; }
+  .contato-channels { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+  .contato-card { display: flex; align-items: center; gap: 1rem; background: var(--white); border: 1px solid var(--gray-light); border-radius: 2px; padding: 1.1rem 1.4rem; text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+  .contato-card:hover { border-color: var(--accent); transform: translateX(4px); }
+  .contato-icon { width: 38px; height: 38px; background: var(--accent); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+  .contato-info h4 { font-size: 0.84rem; font-weight: 700; color: var(--black); margin-bottom: 2px; font-family: 'Syne', sans-serif; }
+  .contato-info p { font-size: 0.75rem; color: var(--gray); }
+  .contato-right { background: var(--white); border: 1px solid var(--gray-light); padding: 2.5rem; border-radius: 2px; }
+  .contato-right h3 { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.4rem; color: var(--black); }
+  .form-group { margin-bottom: 1rem; }
+  .form-group label { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray); margin-bottom: 5px; font-family: 'Syne', sans-serif; }
+  .form-group input, .form-group select, .form-group textarea { width: 100%; border: 1px solid var(--gray-light); border-radius: 2px; padding: 10px 13px; font-family: 'DM Sans', sans-serif; font-size: 0.87rem; color: var(--text); background: var(--white); outline: none; transition: border-color 0.2s; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .form-group textarea { resize: vertical; min-height: 85px; }
+  .form-submit { width: 100%; background: var(--accent); color: #fff; border: none; border-radius: 2px; padding: 13px; font-family: 'Syne', sans-serif; font-size: 0.87rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+  .form-submit:hover { background: var(--accent-dark); }
+
+  footer { background: var(--black); padding: 4vw 8vw; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.06); }
+  .footer-logo { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 800; color: var(--white); }
+  .footer-logo span { color: var(--accent); }
+  .footer-tagline { font-size: 0.74rem; color: rgba(250,250,248,0.25); margin-top: 3px; }
+  .footer-links { display: flex; gap: 1.8rem; list-style: none; }
+  .footer-links a { color: rgba(250,250,248,0.35); text-decoration: none; font-size: 0.8rem; font-family: 'Syne', sans-serif; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-copy { font-size: 0.74rem; color: rgba(250,250,248,0.2); }
+
+  .wa-float { position: fixed; bottom: 28px; right: 28px; z-index: 200; width: 54px; height: 54px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(37,211,102,0.4); text-decoration: none; font-size: 1.5rem; animation: pulse-wa 3s ease-in-out infinite; transition: transform 0.2s; }
+  .wa-float:hover { transform: scale(1.1); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse-wa { 0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); } 50% { box-shadow: 0 4px 32px rgba(37,211,102,0.65); } }
+
+  @media (max-width: 900px) {
+    .hero, #sobre, #ebook, #contato { grid-template-columns: 1fr; }
+    .hero-left { padding: 5rem 6vw 4rem; }
+    .hero-right { padding: 4rem 6vw; }
+    .historia-intro { grid-template-columns: 1fr; gap: 2rem; margin-bottom: 3rem; }
+    #historia, #servicos, #veiculos, .ebook-left, #contato { padding: 5rem 6vw; }
+    .sobre-visual, .sobre-content { padding: 5rem 6vw; }
+    .services-grid { grid-template-columns: 1fr; }
+    .veiculos-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .section-header { flex-direction: column; align-items: flex-start; }
+    .ebook-right { display: none; }
+    #ebook { grid-template-columns: 1fr; }
+    footer { flex-direction: column; align-items: flex-start; padding: 4rem 6vw; }
+  }
+  @media (max-width: 600px) {
+    .veiculos-grid { grid-template-columns: 1fr; }
+    .segmentos-grid { grid-template-columns: 1fr; }
+    .contato-right { padding: 1.75rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">LM AutoSolutions <span class="nav-badge">desde 1991</span></a>
+  <ul class="nav-links">
+    <li><a href="#historia">História</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#veiculos">Veículos</a></li>
+    <li><a href="#ebook">Ebook</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a href="https://wa.me/5521968111066" class="nav-cta">WhatsApp →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Brasil · repasses e atendimento particular</div>
+    <h1 class="hero-title">Uma vida inteira<br>dedicada ao<br>mercado <em>automotivo.</em></h1>
+    <p class="hero-desc">Filho de fundador de revenda, aprendi o ofício dos 14 anos. Passei por revendas, importados, leilões, abri minha própria loja e construí uma operação solo que atende todo o Brasil — com a seriedade de quem nasceu nesse mercado.</p>
+    <div class="hero-actions">
+      <a href="https://wa.me/5521968111066" class="btn-primary">Falar no WhatsApp →</a>
+      <a href="#historia" class="btn-ghost">Minha história</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="stat-num">1991</div><div class="stat-label">Início da trajetória</div></div>
+      <div><div class="stat-num">2019</div><div class="stat-label">Operação solo</div></div>
+      <div><div class="stat-num">BR</div><div class="stat-label">Atendimento nacional</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="service-card-mini"><h4>Consignação Digital</h4><p>Vendo seu carro sem você se preocupar. Comissão só na venda. Atendimento nacional.</p></div>
+    <div class="service-card-mini"><h4>Consultoria de Compra e Venda</h4><p>Experiência de décadas para você não errar na negociação — em qualquer estado.</p></div>
+    <div class="service-card-mini"><h4>Repasses para todo o Brasil</h4><p>Veículos de procedência para revendedores e clientes particulares via OLX.</p></div>
+    <div class="service-card-mini"><h4>Produtos Afiliados</h4><p>Seguro, garantia estendida, rastreador e proteção veicular com as melhores condições.</p></div>
+  </div>
+</section>
+
+<!-- HISTÓRIA -->
+<section id="historia">
+  <div class="historia-intro">
+    <div>
+      <div class="section-label" style="color:var(--accent)">Uma história de família e ofício</div>
+      <h2 class="historia-title">Tudo começou<br>com <em>meu pai.</em></h2>
+    </div>
+    <p class="historia-desc">Cresci rodeado de carros. Meu pai fundou a <strong style="color:rgba(250,250,248,0.82)">Competi</strong>, uma das revendas mais tradicionais da Barra da Tijuca — na Avenida das Américas — que existe até hoje. Mas quando pedi para trabalhar com ele, teve uma sabedoria rara: me colocou para aprender do zero, como estagiário na loja de um amigo, a Estilauto no Shopping Car. Foi a melhor decisão que ele poderia ter tomado por mim.</p>
+  </div>
+
+  <div class="heranca-card">
+    <h3>A Competi — onde tudo nasceu</h3>
+    <p>Meu pai abriu a <strong>Competi</strong> na <strong>Avenida das Américas, Barra da Tijuca</strong>, Rio de Janeiro. A loja existe até hoje e é parte da história do mercado automotivo carioca. Cresci vendo aquele negócio de perto — mas aprendi o ofício começando do zero, para entender cada detalhe do mercado com as próprias mãos.</p>
+  </div>
+
+  <div class="timeline" id="timeline">
+    <div class="tl-item highlight">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1991 — O começo</div>
+      <div class="tl-title">Estagiário na Estilauto · Shopping Car, Rio de Janeiro</div>
+      <div class="tl-desc">com 14 anos, meu pai me colocou para estagiar na Estilauto — loja de um grande amigo dele, no Shopping Car. Mesmo sendo filho de dono de revenda, comecei do zero. Aprendi o que nenhuma escola ensina: como o cliente pensa na hora de comprar e por que confiança vale mais do que qualquer argumento de venda.</div>
+      <span class="tl-tag">Primeiro passo</span>
+    </div>
+
+    <div class="tl-item highlight">
+      <div class="tl-dot"></div>
+      <div class="tl-year">1996 — O legado</div>
+      <div class="tl-title">Falecimento do meu pai — e a continuidade</div>
+      <div class="tl-desc">Em 1996 perdi meu pai. Ele me deixou alguns carros e, com eles, a responsabilidade de honrar tudo que ele construiu e me ensinou. Segui em frente. Cada veículo negociado depois disso carregou um pouco da história que ele começou.</div>
+      <span class="tl-tag">Legado & continuidade</span>
+    </div>
+
+    <div class="tl-item highlight">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2010 — A loja própria</div>
+      <div class="tl-title">Consultcar · Barra da Tijuca, Parque das Rosas</div>
+      <div class="tl-desc">Em 2010, abri a Consultcar em sociedade com um amigo — na Barra da Tijuca, no Parque das Rosas. A loja reuniu anos de experiência em atendimento físico, consolidando a presença no mercado carioca com estrutura, equipe e reputação construída ao longo de quase uma década.</div>
+      <span class="tl-tag">Loja própria · Barra da Tijuca</span>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2019 — A virada</div>
+      <div class="tl-title">Carreira solo — liberdade e foco total no cliente</div>
+      <div class="tl-desc">Em 2019 encerrei a sociedade na Consultcar e decidi trabalhar de forma independente. Uma escolha consciente: menos estrutura física, mais agilidade, mais atenção personalizada e menos burocracia. A carreira solo trouxe o melhor que acumulei em décadas — e a liberdade de atender cada cliente do jeito que merece.</div>
+      <span class="tl-tag">Solo · Digital · Nacional</span>
+    </div>
+
+    <div class="tl-item highlight">
+      <div class="tl-dot"></div>
+      <div class="tl-year">Hoje · 2026</div>
+      <div class="tl-title">LM AutoSolutions — Brasil inteiro, do jeito certo</div>
+      <div class="tl-desc">Toda essa trajetória — da Estilauto ao Shopping Car, dos repasses nacionais, da Consultcar até a operação solo — está reunida hoje na LM AutoSolutions. Consignação, consultoria, afiliados, repasses e ebook. Atendimento 100% digital pelo WhatsApp para todo o Brasil, com a seriedade de quem nasceu nesse mercado.</div>
+      <span class="tl-tag">Brasil · Digital · Completo</span>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="sobre-visual">
+    <p class="sobre-quote">"Meu pai tinha uma loja — e mesmo assim me colocou para aprender do zero. Essa lição guia tudo que faço até hoje."</p>
+    <div class="sobre-anos">
+      <div class="sobre-anos-num">1991</div>
+      <div class="sobre-anos-text">Início da<br>trajetória</div>
+    </div>
+  </div>
+  <div class="sobre-content">
+    <div class="section-label">Quem está por trás</div>
+    <h2 class="section-title">Uma trajetória<br>construída por inteiro.</h2>
+    <p class="section-body">A LM AutoSolutions carrega uma história que começa antes mesmo de mim — na Competi, revenda fundada pelo meu pai na Barra da Tijuca, que existe até hoje. Passei pela Estilauto, pelos repasses nacionais, pela Consultcar e pela decisão de 2019 de trabalhar solo.</p>
+    <p class="section-body" style="margin-top:1rem;">Hoje opero de forma 100% digital, atendendo todo o Brasil via WhatsApp Business, OLX e Instagram — com décadas de mercado e a experiência de quem passou por cada segmento desse setor.</p>
+    <div class="segmentos-grid">
+      <div class="seg-pill">Revendas & concessionárias</div>
+      <div class="seg-pill">Repasses nacionais</div>
+      <div class="seg-pill">Vendas diretas via OLX</div>
+      <div class="seg-pill">Importados & premium</div>
+      <div class="seg-pill">Leilões</div>
+      <div class="seg-pill">Consignação digital</div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="section-header">
+    <div>
+      <div class="section-label">O que oferecemos</div>
+      <h2 class="section-title">Nossos serviços</h2>
+    </div>
+    <a href="https://wa.me/5521968111066" class="btn-primary" style="white-space:nowrap">Solicitar atendimento →</a>
+  </div>
+  <div class="services-grid">
+    <div class="srv-card">
+      <div class="srv-num">01 — Consignação</div>
+      <h3 class="srv-title">Consignação Digital</h3>
+      <div class="srv-line"></div>
+      <p class="srv-desc">Você autoriza, nós vendemos. Sem custo adiantado — comissão só quando o negócio fecha. Atendemos todo o Brasil.</p>
+      <ul class="srv-items"><li>Comissão de 3% a 5%</li><li>Anúncio em OLX, Instagram e WhatsApp</li><li>Contrato digital incluso</li><li>Atendimento dos compradores por nós</li></ul>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">02 — Consultoria</div>
+      <h3 class="srv-title">Consultoria de Compra e Venda</h3>
+      <div class="srv-line"></div>
+      <p class="srv-desc">Décadas de experiência do seu lado. Não compre nem venda sem ter um especialista orientando cada passo — em qualquer estado.</p>
+      <ul class="srv-items"><li>Avaliação de mercado</li><li>Análise de histórico e documentação</li><li>Acompanhamento na negociação</li><li>Atendimento nacional via WhatsApp</li></ul>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">03 — Afiliados</div>
+      <h3 class="srv-title">Proteção e Produtos</h3>
+      <div class="srv-line"></div>
+      <p class="srv-desc">As melhores soluções de proteção veicular com parceiros homologados e condições exclusivas para todo o Brasil.</p>
+      <ul class="srv-items"><li>Seguro automotivo</li><li>Garantia estendida</li><li>Rastreador veicular</li><li>Proteção veicular</li></ul>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">04 — Repasses</div>
+      <h3 class="srv-title">Repasses · Brasil Inteiro</h3>
+      <div class="srv-line"></div>
+      <p class="srv-desc">Acesso direto a veículos de procedência de todo o Brasil — para revendedores e clientes particulares via OLX e WhatsApp.</p>
+      <ul class="srv-items"><li>Veículos com histórico limpo</li><li>Preço abaixo da tabela FIPE</li><li>Para revendedores e PF</li><li>Fotos e vídeos detalhados</li></ul>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">05 — Anúncios</div>
+      <h3 class="srv-title">Gestão de Anúncios</h3>
+      <div class="srv-line"></div>
+      <p class="srv-desc">Anúncios profissionais nas principais plataformas para maximizar visibilidade e conversão em todo o Brasil.</p>
+      <ul class="srv-items"><li>Fotos e descrição otimizadas</li><li>OLX e Instagram</li><li>Status do WhatsApp Business</li><li>Atualização contínua</li></ul>
+    </div>
+    <div class="srv-card">
+      <div class="srv-num">06 — Ebook</div>
+      <h3 class="srv-title">Guia de Compra Segura</h3>
+      <div class="srv-line"></div>
+      <p class="srv-desc">Décadas de mercado reunidas num guia prático para comprar ou vender em qualquer estado sem erro e sem risco.</p>
+      <ul class="srv-items"><li>Como avaliar um veículo</li><li>Documentação e transferência</li><li>Golpes mais comuns</li><li>Disponível no Hotmart</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- VEÍCULOS -->
+<section id="veiculos">
+  <div class="section-label">Disponíveis agora</div>
+  <h2 class="section-title">Veículos à venda</h2>
+  <div class="veiculos-grid">
+    <div class="veiculo-card">
+      <div class="veiculo-img">🚗<div class="veiculo-badge">Consignado</div></div>
+      <div class="veiculo-body"><div class="veiculo-title">Honda Civic EXL</div><div class="veiculo-meta">2019 · 45.000 km · Automático</div><div class="veiculo-price">R$ 115.000</div><a href="https://wa.me/5521968111066" class="veiculo-btn">Tenho interesse</a></div>
+    </div>
+    <div class="veiculo-card">
+      <div class="veiculo-img">🚙<div class="veiculo-badge">Repasse</div></div>
+      <div class="veiculo-body"><div class="veiculo-title">Toyota Corolla XEI</div><div class="veiculo-meta">2020 · 62.000 km · Automático</div><div class="veiculo-price">R$ 128.000</div><a href="https://wa.me/5521968111066" class="veiculo-btn">Tenho interesse</a></div>
+    </div>
+    <div class="veiculo-card">
+      <div class="veiculo-img">🚐<div class="veiculo-badge">Novo</div></div>
+      <div class="veiculo-body"><div class="veiculo-title">Jeep Compass Limited</div><div class="veiculo-meta">2021 · 38.000 km · Automático</div><div class="veiculo-price">R$ 178.000</div><a href="https://wa.me/5521968111066" class="veiculo-btn">Tenho interesse</a></div>
+    </div>
+  </div>
+  <div class="veiculos-cta">
+    <a href="https://wa.me/5521968111066" class="btn-primary">Ver estoque completo →</a>
+    <p class="veiculos-note">Atendemos compradores e vendedores em todo o Brasil — novos veículos chegam toda semana.</p>
+  </div>
+</section>
+
+<!-- EBOOK -->
+<section id="ebook">
+  <div class="ebook-left">
+    <div class="ebook-tag">Infoproduto</div>
+    <h2 class="ebook-title">Uma vida de<br>mercado em<br><em>um só guia.</em></h2>
+    <p class="ebook-desc">Da Estilauto aos repasses nacionais, da Consultcar à operação solo — tudo que aprendi reunido num guia direto para quem quer comprar bem, vender rápido e nunca cair em golpe, em qualquer estado do Brasil.</p>
+    <ul class="ebook-topics">
+      <li>Como identificar um bom repasse em qualquer estado</li>
+      <li>Checklist completo de inspeção visual</li>
+      <li>Documentação: o que verificar antes de assinar</li>
+      <li>Como anunciar e vender mais rápido na OLX</li>
+      <li>Os 7 golpes mais comuns e como evitar</li>
+      <li>O que aprendi em leilões e no mercado premium</li>
+    </ul>
+    <a href="https://wa.me/5521968111066" class="btn-primary">Quero o ebook →</a>
+  </div>
+  <div class="ebook-right">
+    <div class="ebook-cover">
+      <div><div class="ebook-cover-label">LM AutoSolutions</div></div>
+      <div><div class="ebook-cover-title">Guia Completo de Compra e Venda de Veículos</div></div>
+      <div>
+        <div class="ebook-cover-sub">Uma vida de mercado<br>em linguagem direta</div>
+        <div class="ebook-cover-author">LM AutoSolutions · Brasil</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato">
+  <div>
+    <div class="section-label">Fale conosco</div>
+    <h2 class="section-title">Atendimento para<br>todo o Brasil.</h2>
+    <p class="section-body" style="margin-top:1rem;">Do Rio de Janeiro para qualquer estado — atendemos repasses, compras, vendas e consultorias em todo o território nacional. O WhatsApp é sempre o canal mais rápido.</p>
+    <div class="contato-channels">
+      <a href="https://wa.me/5521968111066" class="contato-card">
+        <div class="contato-icon">📱</div>
+        <div class="contato-info"><h4>WhatsApp Business</h4><p>(21) 96811-1066 — Atendimento nacional</p></div>
+      </a>
+      <a href="https://instagram.com/lm_autosolutions" class="contato-card">
+        <div class="contato-icon">📷</div>
+        <div class="contato-info"><h4>Instagram</h4><p>@lm_autosolutions — Novidades e veículos</p></div>
+      </a>
+      <a href="https://olx.com.br" class="contato-card">
+        <div class="contato-icon">🔎</div>
+        <div class="contato-info"><h4>OLX</h4><p>LM AutoSolutions — Repasses para todo o Brasil</p></div>
+      </a>
+    </div>
+  </div>
+  <div class="contato-right">
+    <h3>Envie uma mensagem</h3>
+    <div class="form-group"><label>Seu nome</label><input type="text" placeholder="Como posso te chamar?"></div>
+    <div class="form-group"><label>WhatsApp</label><input type="tel" placeholder="(21) 96811-1066"></div>
+    <div class="form-group"><label>Estado</label>
+      <select>
+        <option value="">Selecione seu estado...</option>
+        <option>Rio de Janeiro</option><option>São Paulo</option><option>Minas Gerais</option>
+        <option>Espírito Santo</option><option>Bahia</option><option>Pernambuco</option>
+        <option>Ceará</option><option>Rio Grande do Sul</option><option>Santa Catarina</option>
+        <option>Paraná</option><option>Goiás</option><option>Distrito Federal</option>
+        <option>Mato Grosso</option><option>Mato Grosso do Sul</option><option>Pará</option>
+        <option>Amazonas</option><option>Outro</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Interesse</label>
+      <select>
+        <option value="">Selecione um serviço...</option>
+        <option>Consignação Digital</option>
+        <option>Consultoria de Compra</option>
+        <option>Consultoria de Venda</option>
+        <option>Repasse / Veículo à venda</option>
+        <option>Seguro / Afiliados</option>
+        <option>Ebook</option>
+      </select>
+    </div>
+    <div class="form-group"><label>Mensagem</label><textarea placeholder="Conte mais sobre o que você precisa..."></textarea></div>
+    <button class="form-submit" onclick="window.open('https://wa.me/5521968111066','_blank')">Enviar pelo WhatsApp →</button>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="footer-logo">LM <span>Auto</span>Solutions</div>
+    <div class="footer-tagline">Rio de Janeiro · atendimento para todo o Brasil · desde 1991</div>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#historia">História</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#veiculos">Veículos</a></li>
+    <li><a href="#ebook">Ebook</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 LM AutoSolutions · Brasil. Todos os direitos reservados.</div>
+</footer>
+
+<a href="https://wa.me/5521968111066" class="wa-float" title="Falar no WhatsApp">📱</a>
+
+<script>
+const items = document.querySelectorAll('.tl-item');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 130);
+  });
+}, { threshold: 0.12 });
+items.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
